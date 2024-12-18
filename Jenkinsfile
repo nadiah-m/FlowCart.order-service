@@ -8,12 +8,12 @@ pipeline {
             steps {
                 sh 'mvn clean install -DskipTests'
             }
-            // post {
-            //     success {
-            //         echo 'Now Archiving...'
-            //         archiveArtifacts artifacts: '**/target/*.war'
-            //     }
-            // }
+        // post {
+        //     success {
+        //         echo 'Now Archiving...'
+        //         archiveArtifacts artifacts: '**/target/*.war'
+        //     }
+        // }
         }
         stage('Test') {
             steps {
@@ -32,6 +32,16 @@ pipeline {
             post {
                 success {
                     echo 'Generated Analysis Result'
+                }
+            }
+        }
+        stage('Run Sonarqube') {
+            environment {
+                scannerHome = tool 'Sonar'
+            }
+            steps {
+                withSonarQubeEnv(credentialsId: 'Sonar') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
