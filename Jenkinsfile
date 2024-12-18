@@ -44,7 +44,7 @@ pipeline {
                     sh '''${scannerHome}/bin/sonar-scanner \
                     -Dsonar.projectKey=nadiah-m_FlowCart.order-service \
                     -Dsonar.organization=nadiah-m
-                    -Dsonar.java.binaries=target/classes/net/javaguides/orderservice/**/*.class'''
+                    -Dsonar.java.binaries=target/classes/net/javaguides/**/*.class'''
                 }
             }
         }
