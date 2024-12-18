@@ -41,7 +41,9 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'sq1') {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                    sh '''${scannerHome}/bin/sonar-scanner
+                    -Dsonar.projectKey=nadiah-m_FlowCart.order-service \
+                    -Dsonar.organization.organization=nadiah-m'''
                 }
             }
         }
