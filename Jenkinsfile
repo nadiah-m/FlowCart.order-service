@@ -45,6 +45,9 @@ pipeline {
                      -Dsonar.projectKey=nadiah-m_FlowCart.order-service \
                      -Dsonar.organization=nadiah-m'
                 }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
