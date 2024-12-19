@@ -3,6 +3,12 @@ pipeline {
     tools {
         maven 'Maven 3'
     }
+    environment {
+        // Define Docker image name and version
+        DOCKER_IMAGE = 'nadiah92/flowcart.order-service'
+        DOCKER_TAG = "latest-${BUILD_NUMBER}" // or use a specific version
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -48,6 +54,14 @@ pipeline {
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                 }
             }
         }
