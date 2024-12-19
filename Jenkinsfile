@@ -62,7 +62,7 @@ pipeline {
                 script {
                     // Build the Docker image
                     //sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                    docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
                 }
             }
         }
