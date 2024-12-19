@@ -43,7 +43,8 @@ pipeline {
                 withSonarQubeEnv(credentialsId: 'Sonar', installationName: 'sq1') {
                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
                      -Dsonar.projectKey=nadiah-m_FlowCart.order-service \
-                     -Dsonar.organization=nadiah-m'
+                     -Dsonar.organization=nadiah-m
+                     -Dsonar.jacoco.reportPaths=target/jacoco.exec'
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true

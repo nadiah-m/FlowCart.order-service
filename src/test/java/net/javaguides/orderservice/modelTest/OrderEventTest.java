@@ -14,7 +14,11 @@ public class OrderEventTest {
     @BeforeEach
     void setUp() {
         // Initialize before each test
-        order = new Order("12345","test",1, 100.50);  // Example order
+        order = new Order();  // Default constructor
+        order.setOrderId("12345");
+        order.setName("test");
+        order.setQty(1);
+        order.setPrice(100.50);
         orderEvent = new OrderEvent();
     }
 
@@ -51,9 +55,13 @@ public class OrderEventTest {
         assertEquals(order, orderEvent.getOrder());
 
         // Modify order and check if the change reflects
-        Order newOrder = new Order("67890", "changeTest", 2, 150.75);
-        orderEvent.setOrder(newOrder);
-        assertEquals(newOrder, orderEvent.getOrder());
+        Order anotherOrder = new Order();
+        anotherOrder.setOrderId("12345");
+        anotherOrder.setName("Laptop");
+        anotherOrder.setQty(2);
+        anotherOrder.setPrice(500.0);
+        orderEvent.setOrder(anotherOrder);
+        assertEquals(anotherOrder, orderEvent.getOrder());
     }
 
     @Test
