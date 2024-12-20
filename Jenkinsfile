@@ -67,12 +67,10 @@ pipeline {
             }
         }
         stage('Push Image') {
-            steps {
-                docker.withRegistry('', registryCredential) {
-                    dockerImage.push("V$BUILD_NUMBER")
-                    dockerImage.push('latest')
+            docker.withRegistry('', registryCredential) {
+                dockerImage.push("V$BUILD_NUMBER")
+                dockerImage.push('latest')
             }
-          }
         }
     }
 }
