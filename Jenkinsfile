@@ -7,6 +7,7 @@ pipeline {
         // Define Docker image name and version
         DOCKER_IMAGE = 'nadiah92/flowcart.order-service'
         DOCKER_TAG = "latest-${BUILD_NUMBER}" // or use a specific version
+        registryCredential = 'dockerCredentials'
     }
 
     stages {
@@ -61,10 +62,17 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    //sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
                 }
             }
+        }
+        stage('Push Image') {
+            steps {
+                docker.withRegistry('', registryCredential) {
+                    dockerImage.push("V$BUILD_NUMBER")
+                    dockerImage.push('latest')
+            }
+          }
         }
     }
 }
