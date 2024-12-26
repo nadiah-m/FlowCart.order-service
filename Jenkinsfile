@@ -11,6 +11,12 @@ pipeline {
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your repository
+                checkout scm
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn clean install -DskipTests'
@@ -61,7 +67,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image
                     dockerImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
                 }
             }

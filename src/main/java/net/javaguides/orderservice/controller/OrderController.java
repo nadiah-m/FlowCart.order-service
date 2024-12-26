@@ -3,6 +3,8 @@ package net.javaguides.orderservice.controller;
 import net.javaguides.orderservice.dto.Order;
 import net.javaguides.orderservice.dto.OrderEvent;
 import net.javaguides.orderservice.publisher.OrderProducer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public String placeOrder(@RequestBody Order order){
+    public ResponseEntity<Order> createOrder(@RequestBody Order order){
 
         order.setOrderId(UUID.randomUUID().toString());
 
@@ -32,6 +34,8 @@ public class OrderController {
 
         orderProducer.sendMessage(event);
 
-        return "Order sent to the RabbitMQ ..";
+        //return "Order sent to the RabbitMQ ..";
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
+
     }
 }
