@@ -10,7 +10,7 @@ public class CORSConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // Allow CORS for all paths
-                .allowedOrigins("http://flowcart.ndhmlk.site")  // Allow the React frontend's URL
+                .allowedOrigins("http://order-service.default.svc.cluster.local:8080")  // Allow the React frontend's URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Allow these methods
                 .allowedHeaders("*")  // Allow all headers
                 .allowCredentials(true)  // Allow cookies to be sent with requests
